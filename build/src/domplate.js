@@ -13,15 +13,35 @@
       interpolate: /\{\{(.+?)\}\}/g,
       variable: 'model'
     },
+    domplate: 'domplate',
     initialize: function() {
       _.bindAll(this);
-      return _.each(this.$el.data('domplate').split(/\s+/), this.template);
+      if (this.model) {
+        this.json(this.model.toJSON());
+        this.render_domplates();
+      }
+      return this;
+    },
+    render_domplates: function(json, binding) {
+      if (binding) {
+        this.templateSettings.variable = binding;
+      }
+      if (this.json(json)) {
+        _.each(this.$el.data(this.domplate).split(/\s+/), this.template);
+      }
+      return this;
+    },
+    json: function(json) {
+      if (json) {
+        this._json = json();
+      }
+      return this._json;
     },
     template: function(attr) {
-      var data, result, value;
-      if (value = this.$el.attr(attr)) {
-        data = this.model.toJSON();
-        result = _.template(value, data, this.templateSettings);
+      var data, formatter, result;
+      if (formatter = this.$el.attr(attr) || (formatter = this.$el.data("" + this.domplate + "-" + attr))) {
+        data = this.json;
+        result = _.template(formatter, data, this.templateSettings);
         return this.$el.attr(attr, result);
       }
     }

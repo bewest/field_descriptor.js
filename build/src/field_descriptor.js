@@ -19,11 +19,16 @@
       return this.render();
     },
     render: function(ev, delta) {
-      var json, k, value;
+      var json;
       json = this.model.toJSON();
       if (delta && delta.changes) {
         json = _.pick(json, _.keys(delta.changes));
       }
+      this.render_json(json);
+      return this;
+    },
+    render_json: function(json) {
+      var k, value;
       for (k in json) {
         if (!__hasProp.call(json, k)) continue;
         value = json[k];

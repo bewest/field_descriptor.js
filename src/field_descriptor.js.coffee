@@ -17,6 +17,10 @@ window.FieldDescriptor = Backbone.View.extend(
     json = @model.toJSON( )
     if delta and delta.changes
       json = _.pick(json, _.keys(delta.changes))
+    @render_json(json)
+    @
+
+  render_json: (json) ->
     for own k, value of json
       @render_field(k, value)
     @
@@ -24,6 +28,7 @@ window.FieldDescriptor = Backbone.View.extend(
   select_field: (key) ->
     selector = "#{@prefix}.#{key} .value, #{@prefix}.#{key}.value"
     @$(selector)
+
   render_field: (k, value) ->
     update =
       values:  ':input:not(:radio,:checkbox)'

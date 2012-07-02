@@ -10,13 +10,28 @@ window.Domplate = Backbone.View.extend(
   templateSettings:
     interpolate: /\{\{(.+?)\}\}/g
     variable: 'model'
+  domplate: 'domplate'
   initialize: ( ) ->
     _.bindAll(@)
-    _.each(@$el.data('domplate').split(/\s+/), @template)
+    if @model
+      @json(@model.toJSON( ))
+      @render_domplates( )
+    @
+  render_domplates: (json, binding) ->
+    if binding
+      @templateSettings.variable = binding
+    if @json(json)
+      _.each(@$el.data(@domplate).split(/\s+/), @template)
+    @
+  json: (json) ->
+    if json
+      @_json = json( )
+    @_json
   template: (attr) ->
-    if value = @$el.attr(attr)
-      data   = @model.toJSON( )
-      result = _.template(value, data, @templateSettings)
+    if formatter = @$el.attr(attr) or
+       formatter = @$el.data("#{@domplate}-#{attr}")
+      data   = @json
+      result = _.template(formatter, data, @templateSettings)
       @$el.attr(attr, result)
 )
 
