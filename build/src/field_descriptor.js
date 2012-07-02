@@ -1,8 +1,7 @@
 (function() {
-  var FieldDescriptor,
-    __hasProp = {}.hasOwnProperty;
+  var __hasProp = {}.hasOwnProperty;
 
-  FieldDescriptor = Backbone.View.extend({
+  window.FieldDescriptor = Backbone.View.extend({
     /*
         FieldDescriptor automatically generates CSS selectors from a
         a Model by iterating over keys found in Model.toJSON( ).

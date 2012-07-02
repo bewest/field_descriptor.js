@@ -1,5 +1,5 @@
 
-Domplate = Backbone.View.extend(
+window.Domplate = Backbone.View.extend(
   ###
   Domplate: is intended to run once in order to set up unique names
   ids, and things.  It integrates with html5's microdata to declare

@@ -1,4 +1,4 @@
-FieldDescriptor = Backbone.View.extend(
+window.FieldDescriptor = Backbone.View.extend(
   ###
     FieldDescriptor automatically generates CSS selectors from a
     a Model by iterating over keys found in Model.toJSON( ).
@@ -42,3 +42,5 @@ FieldDescriptor = Backbone.View.extend(
     filter(update.text).text(value)
     @
 )
+#####
+# EOF
