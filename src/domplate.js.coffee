@@ -25,12 +25,12 @@ window.Domplate = Backbone.View.extend(
     @
   json: (json) ->
     if json
-      @_json = json( )
+      @_json = json
     @_json
   template: (attr) ->
-    if formatter = @$el.attr(attr) or
-       formatter = @$el.data("#{@domplate}-#{attr}")
-      data   = @json
+    if formatter = @$el.data("#{@domplate}-#{attr}") or
+       formatter = @$el.attr(attr)
+      data   = @json( )
       result = _.template(formatter, data, @templateSettings)
       @$el.attr(attr, result)
 )

@@ -33,14 +33,14 @@
     },
     json: function(json) {
       if (json) {
-        this._json = json();
+        this._json = json;
       }
       return this._json;
     },
     template: function(attr) {
       var data, formatter, result;
-      if (formatter = this.$el.attr(attr) || (formatter = this.$el.data("" + this.domplate + "-" + attr))) {
-        data = this.json;
+      if (formatter = this.$el.data("" + this.domplate + "-" + attr) || (formatter = this.$el.attr(attr))) {
+        data = this.json();
         result = _.template(formatter, data, this.templateSettings);
         return this.$el.attr(attr, result);
       }
